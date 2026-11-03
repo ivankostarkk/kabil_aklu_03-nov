@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>To My Sweetheart Aklu • With Endless Love, Kabi</title>
+
+  <!-- Google Fonts: Editorial & Romantic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- AMBIENT CANVAS: Soft floating rose-gold embers & starlight -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- BACKGROUND MUSIC (Gentle Romantic Ambient Instrument with Toggle) -->
+  <audio id="bg-audio" loop preload="auto">
+    <source src="https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- =========================================================================
+       1. SECRET PASSWORD VAULT / LOCK SCREEN
+       ========================================================================= -->
+  <div class="lock-overlay" id="lockOverlay">
+    <div class="lock-card">
+      <div class="lock-wax-seal">
+        <i class="fa-solid fa-lock" id="lockIcon"></i>
+      </div>
+      <span class="lock-subhead">Strictly Confidential & Personal</span>
+      <h1 class="lock-title">For Aklu’s Eyes Only</h1>
+      <p class="lock-desc">
+        A private universe locked with love by <b>Kabi</b>. Enter our secret word to unlock the book.
+      </p>
+
+      <form class="lock-form" id="lockForm" onsubmit="return false;">
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="passcodeInput" 
+            placeholder="Enter secret passcode..." 
+            autocomplete="off" 
+            spellcheck="false" 
+            autofocus 
+          />
+          <button type="button" class="toggle-eye-btn" id="toggleEye" aria-label="Toggle password view">
+            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+
+        <button type="submit" class="unlock-btn" id="unlockBtn">
+          <span>Unlock Our Dimension</span>
+          <i class="fa-solid fa-key"></i>
+        </button>
+      </form>
+
+      <div class="hint-container">
+        <button type="button" class="hint-trigger" id="hintTrigger">
+          <i class="fa-regular fa-lightbulb"></i> Need a hint, dii?
+        </button>
+        <div class="hint-box" id="hintBox">
+          <p>💡 Hint: What sweet nickname does Kabi call you? Or try <b>aklu</b> / <b>dii</b> / <b>love</b></p>
+        </div>
+        <p class="error-msg" id="errorMsg"></p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================================================================
+       2. TOP STATUS BAR (Layer Navigator, Breadcrumbs & Music)
+       ========================================================================= -->
+  <header class="top-nav" id="topNav">
+    <div class="nav-left">
+      <div class="couple-tag">
+        <span class="dot-live"></span>
+        <span class="tag-text">Kabi <i class="fa-solid fa-heart beat"></i> Aklu</span>
+      </div>
+    </div>
+
+    <!-- Recursive Layer Indicators -->
+    <div class="layer-stepper" id="layerStepper">
+      <div class="step-dot active" data-step="0" title="Cover: To My Sweetheart Aklu">
+        <span class="dot-num">1</span>
+        <span class="dot-label">The Cover</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="1" title="Layer 1: Lost In Her Eyes">
+        <span class="dot-num">2</span>
+        <span class="dot-label">Her Eyes</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="2" title="Layer 2: Hands in the Theatre">
+        <span class="dot-num">3</span>
+        <span class="dot-label">Our Moment</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="3" title="Layer 3: Whispers & Secrets">
+        <span class="dot-num">4</span>
+        <span class="dot-label">4 Secrets</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-dot" data-step="4" title="Layer 4: Heartfelt Love Vow">
+        <span class="dot-num">5</span>
+        <span class="dot-label">The Vow</span>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <button class="icon-pill-btn" id="soundToggle" title="Toggle Romantic Melody">
+        <i class="fa-solid fa-music" id="soundIcon"></i>
+        <span class="btn-text" id="soundText">Play Music</span>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- =========================================================================
+       3. 3D RECURSIVE INFINITE ZOOM STAGE (ZERO-SCROLL FIXED VIEWPORT)
+       ========================================================================= -->
+  <main class="viewport-stage" id="viewportStage">
+
+    <!-- 3D Book World Container -->
+    <div class="zoom-universe" id="zoomUniverse">
+
+      <!-- ==========================================
+           DIMENSION 0: THE ROYAL VELVET BOOK COVER
+           ========================================== -->
+      <section class="dimension-layer layer-0" id="layer-0" data-depth="0">
+        <div class="book-tome">
+          <!-- Gilded corner ornaments -->
+          <div class="corner-filigree top-left"></div>
+          <div class="corner-filigree top-right"></div>
+          <div class="corner-filigree bottom-left"></div>
+          <div class="corner-filigree bottom-right"></div>
+
+          <div class="tome-binding"></div>
+
+          <div class="tome-content">
+            <span class="book-edition">A Private Chronicle • Infinite Edition</span>
+            
+            <h1 class="tome-title">
+              <span>To My Sweetheart</span>
+              <em>Aklu</em>
+            </h1>
+
+            <div class="tome-monogram">
+              <span class="letter">K</span>
+              <span class="gold-heart"><i class="fa-solid fa-heart"></i></span>
+              <span class="letter">A</span>
+            </div>
+
+            <p class="tome-tagline">
+              "Every time I look into your eyes, I discover a whole universe I never want to leave."
+            </p>
+
+            <!-- THE RECURSIVE DIVE PORTAL (Contains miniature next world) -->
+            <div class="recursive-portal" id="portal-0" role="button" aria-label="Dive into Layer 1">
+              <div class="portal-ring pulse-ring"></div>
+              <div class="portal-window">
+                <div class="preview-mini mini-layer-1">
+                  <div class="mini-silhouette"></div>
+                  <span class="mini-glance">✨ Tap Book To Open ✨</span>
+                </div>
+              </div>
+              <div class="dive-pill">
+                <span>Click to Open Dimension 1</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </div>
+            </div>
+
+            <div class="tome-signature">
+              <span>Crafted for Dii with infinite adoration by Daa (Kabil)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           DIMENSION 1: "LOST IN HER EYES"
+           ========================================== -->
+      <section class="dimension-layer layer-1" id="layer-1" data-depth="1">
+        <div class="book-tome page-layout">
+          <div class="page-spread">
+            <!-- Left Side: Poetic Memoir -->
+            <div class="page-side page-left">
+              <div class="chapter-stamp">Chapter I</div>
+              <h2 class="page-heading">The Day Time Stood Still</h2>
+              <div class="decorative-separator"><span>❦</span></div>
+              <p class="story-para">
+                They say the ocean is deep, but they have never looked into your eyes, <b>Aklu</b>.
+              </p>
+              <p class="story-para highlight">
+                "From the very first moment my eyes met yours, all the noise in the world just disappeared. I didn't fall—I willingly lost myself right there."
+              </p>
+              <p class="story-para">
+                Whenever you look at me with those soft, sparkling eyes, dii, I lose my train of thought. You are the prettiest daydream Kabi ever found.
+              </p>
+
+              <div class="quote-callout">
+                <i class="fa-solid fa-quote-left"></i>
+                <span>Your eyes hold the peace I searched for everywhere else.</span>
+              </div>
+            </div>
+
+            <!-- Right Side: The Recursive Gateway -->
+            <div class="page-side page-right">
+              <div class="visual-memory-card">
+                <div class="visual-glow-halo"></div>
+                <div class="eye-illustration-box">
+                  <div class="stardust-orb"></div>
+                  <i class="fa-regular fa-eye-slash-hidden fa-eye celestial-eye"></i>
+                  <span class="eye-caption">Hypnotic • Pure • Akalya</span>
+                </div>
+
+                <div class="recursive-portal" id="portal-1" role="button" aria-label="Dive into Layer 2">
+                  <div class="portal-ring"></div>
+                  <div class="portal-window">
+                    <div class="preview-mini mini-layer-2">
+                      <span class="mini-text">Next: Holding Hands in the Theatre 🍿</span>
+                    </div>
+                  </div>
+                  <div class="dive-pill">
+                    <span>Step Deeper Into Our Memory</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           DIMENSION 2: "HOLDING HANDS IN THE THEATRE"
+           ========================================== -->
+      <section class="dimension-layer layer-2" id="layer-2" data-depth="2">
+        <div class="book-tome page-layout">
+          <div class="page-spread">
+            <!-- Left Side: The Cinematic Memory -->
+            <div class="page-side page-left">
+              <div class="chapter-stamp">Chapter II • Our Favorite Moment</div>
+              <h2 class="page-heading">The Theatre, In The Dark</h2>
+              <div class="decorative-separator"><span>❦</span></div>
+              
+              <div class="theatre-ticket">
+                <div class="ticket-header">
+                  <span class="ticket-badge">VIP ROW • SEATS FOR TWO</span>
+                  <span class="ticket-date">A Day Etched Forever</span>
+                </div>
+                <div class="ticket-body">
+                  <h4>The Movie Was Playing...</h4>
+                  <p>
+                    ...but truthfully, I wasn't watching the screen. My entire focus was right beside me.
+                  </p>
+                </div>
+                <div class="ticket-punch">
+                  <span>Admit: Kabi & Aklu Forever</span>
+                </div>
+              </div>
+
+              <p class="story-para">
+                The moment our fingers brushed together and I held your warm hand in that dark theatre... 
+                my heart was beating so fast, I was convinced you could hear it. 
+              </p>
+              <p class="story-para highlight">
+                That simple touch felt warmer and safer than anything in this entire world.
+              </p>
+            </div>
+
+            <!-- Right Side: Recursive Portal to Whispers -->
+            <div class="page-side page-right">
+              <div class="memory-showcase">
+                <div class="hand-holding-art">
+                  <div class="art-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                  <div class="art-title">Warm Fingers Interlocked</div>
+                  <p class="art-sub">"I never wanted that credits roll to come."</p>
+                </div>
+
+                <div class="recursive-portal" id="portal-2" role="button" aria-label="Dive into Layer 3">
+                  <div class="portal-ring"></div>
+                  <div class="portal-window">
+                    <div class="preview-mini mini-layer-3">
+                      <span class="mini-text">Next: 4 Secrets I Adore About You 💌</span>
+                    </div>
+                  </div>
+                  <div class="dive-pill">
+                    <span>Unlock Chapter III: The 4 Secrets</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           DIMENSION 3: "THE 4 SECRETS I ADORE ABOUT AKLU"
+           ========================================== -->
+      <section class="dimension-layer layer-3" id="layer-3" data-depth="3">
+        <div class="book-tome page-layout wide-spread">
+          <div class="secrets-wrapper">
+            <div class="chapter-stamp">Chapter III • Unspoken Whispers</div>
+            <h2 class="page-heading center">4 Things Kabi Adores About Aklu</h2>
+            <p class="page-sub center">Tap each velvet envelope card to unfold the secret feeling inside ✨</p>
+
+            <!-- 4 Interactive Secret Cards Grid -->
+            <div class="secrets-grid">
+              
+              <!-- Secret 1: Her Eyes -->
+              <div class="secret-card" tabindex="0">
+                <div class="card-front">
+                  <div class="secret-icon"><i class="fa-solid fa-sparkles"></i></div>
+                  <span class="secret-num">Secret #01</span>
+                  <h3>Her Eyes</h3>
+                  <p class="tap-prompt">Tap to Reveal <i class="fa-solid fa-envelope-open"></i></p>
+                </div>
+                <div class="card-back">
+                  <div class="seal-icon"><i class="fa-solid fa-heart"></i></div>
+                  <h4>Deepest Galaxies</h4>
+                  <p>
+                    Every glance you give me speaks louder than words. When you look at me, you make me feel like the most fortunate guy alive.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Secret 2: Her Cute Smile -->
+              <div class="secret-card" tabindex="0">
+                <div class="card-front">
+                  <div class="secret-icon"><i class="fa-solid fa-face-smile-beam"></i></div>
+                  <span class="secret-num">Secret #02</span>
+                  <h3>Her Cute Smile</h3>
+                  <p class="tap-prompt">Tap to Reveal <i class="fa-solid fa-envelope-open"></i></p>
+                </div>
+                <div class="card-back">
+                  <div class="seal-icon"><i class="fa-solid fa-sun"></i></div>
+                  <h4>Instant Sunshine</h4>
+                  <p>
+                    The way your smile instantly lights up your cheeks melts every worry I carry. It is literally my favorite view in this universe.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Secret 3: Her Caring Nature -->
+              <div class="secret-card" tabindex="0">
+                <div class="card-front">
+                  <div class="secret-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+                  <span class="secret-num">Secret #03</span>
+                  <h3>Her Caring</h3>
+                  <p class="tap-prompt">Tap to Reveal <i class="fa-solid fa-envelope-open"></i></p>
+                </div>
+                <div class="card-back">
+                  <div class="seal-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                  <h4>Gentle Pure Soul</h4>
+                  <p>
+                    The sweet, thoughtful ways you care for the people you love. Your kindness is genuine, golden, and irreplaceable, dii.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Secret 4: Her Style -->
+              <div class="secret-card" tabindex="0">
+                <div class="card-front">
+                  <div class="secret-icon"><i class="fa-solid fa-crown"></i></div>
+                  <span class="secret-num">Secret #04</span>
+                  <h3>Her Style</h3>
+                  <p class="tap-prompt">Tap to Reveal <i class="fa-solid fa-envelope-open"></i></p>
+                </div>
+                <div class="card-back">
+                  <div class="seal-icon"><i class="fa-solid fa-gem"></i></div>
+                  <h4>Effortless Elegance</h4>
+                  <p>
+                    Whether simple or dressed up, you carry an effortless grace and charming attitude that completely steals my breath every time!
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Portal to Final Vow -->
+            <div class="recursive-portal center-portal" id="portal-3" role="button" aria-label="Dive into Layer 4">
+              <div class="portal-ring pulse-ring"></div>
+              <div class="dive-pill">
+                <span>Enter The Deepest Core Dimension (The Vow)</span>
+                <i class="fa-solid fa-key"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           DIMENSION 4: "THE HEARTFELT LOVE VOW & INFINITE CORE"
+           ========================================== -->
+      <section class="dimension-layer layer-4" id="layer-4" data-depth="4">
+        <div class="book-tome vow-tome">
+          <div class="vow-parchment">
+            <div class="vow-wax-badge">
+              <i class="fa-solid fa-infinity"></i>
+            </div>
+            
+            <div class="chapter-stamp">The Deepest Dimension • Eternal Promise</div>
+            <h2 class="vow-title">A Heartfelt Vow From Kabi To Aklu</h2>
+            <div class="decorative-separator"><span>❦</span></div>
+
+            <div class="vow-body">
+              <p class="vow-lead">
+                My dearest <b>Akalya (Aklu)</b>,
+              </p>
+              <p class="vow-text">
+                We have journeyed through the layers of memory, whispers, and secret thoughts, but the deepest truth in my heart is simple:
+              </p>
+              
+              <div class="vow-pledge-box">
+                <p>
+                  "I promise to stand by you through every storm and every celebration.<br>
+                  I promise to make you laugh on days when you feel low,<br>
+                  To hold your hand just like that evening in the theatre,<br>
+                  And to treasure and protect your smile for the rest of my days."
+                </p>
+              </div>
+
+              <p class="vow-sign">
+                Forever yours, dii.<br>
+                <b>With all my love, Daa (Kabil) &#10084;</b>
+              </p>
+            </div>
+
+            <div class="interactive-vow-actions">
+              <button class="celebrate-btn" id="sealVowBtn">
+                <i class="fa-solid fa-heart-pulse"></i> Seal This Vow With Aklu's Love
+              </button>
+            </div>
+
+            <!-- ==========================================
+                 50-CLICK BROKEN HEART HEALING ACTIVITY
+                 ========================================== -->
+            <div class="heart-healing-section" id="heartHealingSection">
+              <div class="healing-header">
+                <span class="healing-tag">Special Interactive Challenge</span>
+                <h3 class="healing-title">Mend My Heart, Dii ❤️</h3>
+                <p class="healing-desc">
+                  Whenever we are apart or hurt, my heart is broken in two. Tap the button <b>50 times</b> to slowly mend every piece together!
+                </p>
+              </div>
+
+              <!-- Broken Heart Stage -->
+              <div class="broken-heart-stage" id="brokenHeartStage">
+                <div class="heart-pulse-glow" id="heartPulseGlow"></div>
+                
+                <!-- Left Half Piece -->
+                <div class="heart-half half-left" id="heartHalfLeft">
+                  <svg viewBox="0 0 100 100" class="heart-svg">
+                    <path d="M 50,30 C 50,15 35,5 20,5 C 8,5 0,15 0,30 C 0,55 35,80 50,95 L 50,30 Z" fill="url(#leftHeartGrad)"/>
+                    <defs>
+                      <linearGradient id="leftHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff4d6d" />
+                        <stop offset="100%" stop-color="#800f2f" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <!-- Lightning Crack / Seam -->
+                <div class="heart-crack" id="heartCrack"></div>
+
+                <!-- Right Half Piece -->
+                <div class="heart-half half-right" id="heartHalfRight">
+                  <svg viewBox="0 0 100 100" class="heart-svg">
+                    <path d="M 50,30 C 50,15 65,5 80,5 C 92,5 100,15 100,30 C 100,55 65,80 50,95 L 50,30 Z" fill="url(#rightHeartGrad)"/>
+                    <defs>
+                      <linearGradient id="rightHeartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ff758f" />
+                        <stop offset="100%" stop-color="#a4133c" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+
+                <!-- Sparkle particle burst spawner container -->
+                <div class="healing-sparks-container" id="sparksContainer"></div>
+              </div>
+
+              <!-- Progress bar & Counter -->
+              <div class="healing-progress-box">
+                <div class="progress-track">
+                  <div class="progress-bar-fill" id="healingProgressFill"></div>
+                </div>
+                <div class="progress-status">
+                  <span id="clickCounter">0 / 50 Taps</span>
+                  <span id="healingPercent">0% Mended</span>
+                </div>
+              </div>
+
+              <!-- Interactive Mend Button -->
+              <div class="healing-btn-wrapper">
+                <button type="button" class="mend-heart-btn" id="mendHeartBtn">
+                  <i class="fa-solid fa-hand-holding-heart"></i>
+                  <span id="mendBtnText">Tap to Mend Heart (+1)</span>
+                </button>
+              </div>
+
+              <!-- Final Unlocked Surprise (Hidden until 50th click) -->
+              <div class="healed-surprise-card" id="healedSurpriseCard">
+                <div class="surprise-badge">✨ Fully Mended By Aklu ✨</div>
+                <h3 class="surprise-headline">"My Heart Is Whole Only With You"</h3>
+                <p class="surprise-message">
+                  50 taps, and just like that, you made every broken piece fit together perfectly. 
+                  Thank you for being my peace, my smile, and my forever home, <b>Aklu</b>. 
+                  No matter what happens in life, this heart beats exclusively for you, dii! 💖
+                </p>
+                <div class="surprise-gift-box">
+                  <span class="gift-icon">💍</span>
+                  <span class="gift-text">Eternal Love & Pampering Token Unlocked</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- RECURSIVE RE-LOOP PORTAL (Restarts the Infinite Loop) -->
+            <div class="loop-back-box">
+              <button class="loop-btn" id="loopBackBtn">
+                <i class="fa-solid fa-rotate-right"></i> Journey Again From The First Page
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- =========================================================================
+       4. BOTTOM FLOATING CONTROLLER BAR (Interactive Zoom Scrubbing & Controls)
+       ========================================================================= -->
+  <footer class="bottom-controller" id="bottomBar">
+    <div class="controller-pill">
+      
+      <!-- Zoom Out (Back Dimension) -->
+      <button class="ctrl-btn" id="zoomOutBtn" title="Step Back to Previous Layer">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Previous</span>
+      </button>
+
+      <!-- Dimension Scrub Slider -->
+      <div class="slider-wrap">
+        <span class="slider-tag">Dimension Depth:</span>
+        <input 
+          type="range" 
+          id="depthSlider" 
+          min="0" 
+          max="4" 
+          step="1" 
+          value="0" 
+          aria-label="Dimension depth scrub slider" 
+        />
+        <span class="depth-indicator" id="depthLabel">1 / 5</span>
+      </div>
+
+      <!-- Zoom In (Next Dimension) -->
+      <button class="ctrl-btn primary" id="zoomInBtn" title="Dive Deeper Into Next Layer">
+        <span>Dive Deeper</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <!-- Auto Tour Toggle -->
+      <button class="ctrl-btn tour-btn" id="autoTourBtn" title="Auto Glide Through Dimensions">
+        <i class="fa-solid fa-play" id="tourIcon"></i>
+        <span id="tourText">Auto Tour</span>
+      </button>
+
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
